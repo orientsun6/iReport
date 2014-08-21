@@ -7,7 +7,7 @@
 //
 
 #import "AFHTTPSessionManager.h"
-#import "AFNetworking.h"
+
 
 typedef void (^JSONResponseBlock) (NSDictionary *json);
 
@@ -15,10 +15,12 @@ typedef void (^JSONResponseBlock) (NSDictionary *json);
 
 @property (strong, nonatomic) NSDictionary *user;
 
-+(API *)sharedInstance;
++ (API *)sharedInstance;
+
+- (instancetype)initWithBaseURL:(NSURL *)url;
 
 - (BOOL)isAuthorized;
 
-- (void)commandWithParams: (NSMutableDictionary *)params onCompletion: (JSONResponseBlock)completionBlock;
+- (void)commandWithParams: (NSMutableDictionary *)params;
 
 @end

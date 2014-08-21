@@ -8,7 +8,7 @@
 
 #import "API.h"
 
-#define kAPIHost @"http://localhost"
+#define kAPIHost @"http://localhost/~charlesliu/"
 #define kAPIPath @"iReporter/"
 @implementation API
 
@@ -16,23 +16,20 @@
     static API *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[API alloc] initWithBaseURL:[NSURL URLWithString: kAPIHost]];
+        sharedInstance = [[self alloc] initWithBaseURL:[NSURL URLWithString: kAPIHost]];
         //sharedInstance.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];
     });
     return sharedInstance;
 }
 
-- (API *)init
+- (instancetype)initWithBaseURL:(NSURL *)url
 {
-    self = [super init];
+    self = [super initWithBaseURL:url];
     
     if (self) {
         self.user = nil;
-        
         self.requestSerializer = [AFJSONRequestSerializer serializer];
-        
-        [self set];
-        
+        self.responseSerializer = [AFJSONResponseSerializer serializer];
     }
     
     return self;
@@ -42,5 +39,14 @@
     return [[self.user objectForKey:@"IdUser"] intValue] > 0;
 }
 
+- (void)commandWithParams:(NSMutableDictionary *)params {
+/*
+    [self POST:kAPIPath parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+        completionBlock(responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        completionBlock(@{@"error": [error localizedDescription]});
+    }];
+  */  
+}
 
 @end
